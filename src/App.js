@@ -23,7 +23,8 @@ function App() {
     console.log(newUserPost.data);
     setUsers([...users, newUserPost.data]);
   };
-  const deleteUserHandler = (userID) => {
+  const deleteUserHandler = async (userID) => {
+    await axios.delete(`${baseURL}/${userID}`);
     setUsers(users.filter((user) => user.id !== userID));
   };
   // useEffect(() => {
