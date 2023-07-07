@@ -16,7 +16,15 @@ function Contact({ user, deleteUserHandler }) {
         }}
       >
         <div className="ui relaxed divided list">
-          <div className="item" key={id}>
+          <div
+            className="item"
+            key={id}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <i className="large github middle aligned icon"></i>
 
             <div className="content">
@@ -27,16 +35,32 @@ function Contact({ user, deleteUserHandler }) {
               </Link>
               <div className="description">{email}</div>
             </div>
-
-            <i
-              className="trash alternate  icon content middle aligned"
+            <div
               style={{
-                color: "red",
-                fontSize: "1.5rem",
-                cursor: "pointer",
+                display: "flex",
               }}
-              onClick={() => deleteUserHandler(id)}
-            ></i>
+            >
+              <Link to={"/Edit"} state={user}>
+                <i
+                  class="edit icon  middle aligned"
+                  style={{
+                    color: "blue",
+                    fontSize: "1.5rem",
+                    cursor: "pointer",
+                  }}
+                ></i>
+              </Link>
+
+              <i
+                className="trash alternate  icon content middle aligned"
+                style={{
+                  color: "red",
+                  fontSize: "1.5rem",
+                  cursor: "pointer",
+                }}
+                onClick={() => deleteUserHandler(id)}
+              ></i>
+            </div>
           </div>
         </div>
       </div>
