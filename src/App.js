@@ -13,30 +13,25 @@ function App() {
   const [users, setUsers] = useState(retrievedUsers);
   const [searchKeyWord, setSearchKeyWord] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  console.log(users);
   const baseURL = "http://localhost:3030/users";
   useEffect(() => {
     axios.get(baseURL).then((response) => {
-      console.log(response);
       setUsers(response.data);
     });
   }, []);
   const onAddNewUser = async (newUser) => {
     const newUserPost = await axios.post(baseURL, newUser);
-    console.log(newUserPost.data);
-    setUsers([...users, newUserPost.data]);
+    setUsers([newUserPost.data, ...users]);
   };
   const deleteUserHandler = async (userID) => {
     await axios.delete(`${baseURL}/${userID}`);
     setUsers(users.filter((user) => user.id !== userID));
   };
   const onUpdateUser = async (updatedUser) => {
-    console.log(updatedUser);
     const updatedUserResponse = await axios.put(
       `${baseURL}/${updatedUser.id}`,
       updatedUser
     );
-    console.log(updatedUserResponse.data);
     setUsers(
       users.map((usr) =>
         usr.id === updatedUser.id ? { ...updatedUserResponse.data } : usr
@@ -44,7 +39,6 @@ function App() {
     );
   };
   const searchHandler = (searchWord) => {
-    console.log(searchWord);
     setSearchKeyWord(searchWord);
     if (searchKeyWord !== "") {
       let result = users.filter((user) => {
@@ -58,10 +52,7 @@ function App() {
       setSearchResults(users);
     }
   };
-  // useEffect(() => {
-  //   const retrievedUsers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-  //   if (retrievedUsers) setUsers(retrievedUsers);
-  // }, []);
+
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(users));
   }, [users]);
@@ -80,8 +71,6 @@ function App() {
             />
           }
         />
-        {/* {`/User:${userId}`} */}
-        {/* <Route path={`/User/:${userId}`} element={<Profile />} /> */}
         <Route path="/User/:id" element={<Profile />} />
         <Route
           path="/Edit"

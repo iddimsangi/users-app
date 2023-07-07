@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 function Contact({ user, deleteUserHandler }) {
   const { id, fullName, email } = user;
-  // console.log(location.state);
   return (
     <div>
       <div
@@ -42,7 +41,7 @@ function Contact({ user, deleteUserHandler }) {
             >
               <Link to={"/Edit"} state={user}>
                 <i
-                  class="edit icon  middle aligned"
+                  className="edit icon  middle aligned"
                   style={{
                     color: "blue",
                     fontSize: "1.5rem",

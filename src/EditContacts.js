@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 function EditContacts({ onUpdateUser }) {
   const location = useLocation();
-  //   const { id, fullName, emailUpdate, passwordUpdate } = location.state;
 
   console.log(location.state);
   const [name, setName] = useState(location.state.fullName);
