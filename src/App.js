@@ -1,19 +1,27 @@
 import "./App.css";
 import AddContacts from "./AddContacts";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Profile from "./Profile";
 import ContactsList from "./ContactsList";
 import { useState, useEffect } from "react";
+import axios from "axios";
 // import logo from "./logo.svg";
 function App() {
   const LOCAL_STORAGE_KEY = "users";
   const retrievedUsers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
   const [users, setUsers] = useState(retrievedUsers);
-  let { userId } = useParams();
   console.log(users);
-
-  const onAddNewUser = (newUser) => {
-    setUsers([...users, newUser]);
+  const baseURL = "http://localhost:3030/users";
+  useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      console.log(response);
+      setUsers(response.data);
+    });
+  }, []);
+  const onAddNewUser = async (newUser) => {
+    const newUserPost = await axios.post(baseURL, newUser);
+    console.log(newUserPost.data);
+    setUsers([...users, newUserPost.data]);
   };
   const deleteUserHandler = (userID) => {
     setUsers(users.filter((user) => user.id !== userID));
