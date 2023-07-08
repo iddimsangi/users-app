@@ -1,7 +1,16 @@
 import Contact from "./Contact";
 import { Link } from "react-router-dom";
 import Button from "./Button";
-function ContactsList({ users, deleteUserHandler }) {
+function ContactsList({
+  users,
+  deleteUserHandler,
+  searchKeyWord,
+  searchHandler,
+}) {
+  const onSearchHandler = (e) => {
+    e.preventDefault();
+    searchHandler(e.target.value);
+  };
   return (
     <div>
       <Link to={"/"}>
@@ -9,7 +18,12 @@ function ContactsList({ users, deleteUserHandler }) {
       </Link>
 
       <div className="ui fluid icon input">
-        <input type="text" placeholder="Search..." />
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchKeyWord}
+          onChange={onSearchHandler}
+        />
         <i aria-hidden="true" className="search icon"></i>
       </div>
       {users.map((user) => (

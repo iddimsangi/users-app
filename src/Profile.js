@@ -16,7 +16,13 @@ function Profile() {
     </a>
   );
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <Card
         image={lg}
         header={fullName}
